@@ -1,11 +1,11 @@
 public class Customer {
-    private String name;
     private String personalNumber;
+    private String name;
     private String dateOfMembership;
 
-    public Customer(String name, String personalNumber, String dateOfMembership) {
-        this.name = name;
+    public Customer(String personalNumber, String name, String dateOfMembership) {
         this.personalNumber = personalNumber;
+        this.name = name;
         this.dateOfMembership = dateOfMembership;
     }
 
