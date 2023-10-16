@@ -35,6 +35,7 @@ public class TheGym {
         }
         return isCustomer;
     }
+
     public Customer getCustomerFromList(String userInput, List<Customer> cList) {
         for (Customer c : cList) {
             if (c.getName().equalsIgnoreCase(userInput) ||
@@ -84,23 +85,34 @@ public class TheGym {
 
         System.out.println("Welcome to Best Gym Ever!");
         try (Scanner fileScanner = new Scanner(fromCustomersFilePath);
-        Scanner userInput = new Scanner(System.in)) {
+             Scanner userScan = new Scanner(System.in)) {
             customerList = addToCustomerList(fileScanner);
             System.out.println("Skriv namn eller personnummer:");
-            userInputString = userInput.nextLine().trim();
+            userInputString = userScan.nextLine().trim();
             isInList = findCustomerInList(userInputString, customerList);
-            if (isInList){}
-
-            //printToPTInfo(customerList.get(0), toPTFilePath);
-            //System.out.println("Personen är aktiv medlem.");
-            //System.out.println("Personens medlemskap har gått ut.");
+            if (!isInList) {
+                System.out.println("Personen har aldrig varit medlem på Best Gym Ever.");
+                System.exit(0);
+            }
+            currentCustomer = getCustomerFromList(userInputString, customerList);
+            isActivemember = currentMemberCheck(currentCustomer);
+            if (!isActivemember) {
+                System.out.println("Personen har inte ett aktivt medlemskap. \n" +
+                        currentCustomer.getName() + " blev medlem "
+                        + currentCustomer.getDateOfMembership());
+                System.exit(0);
+            } else {
+                System.out.println(currentCustomer.getName() + " med personnummer " +
+                        currentCustomer.getPersonalNumber() + " är aktiv medlem på Best Gym Ever.");
+                printToPTInfo(currentCustomer, toPTFilePath);
+            }
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
             System.exit(0);
         } catch (IOException e) {
-            System.out.println("Unable to write to file.");
+            System.out.println("Unable to read from, or write to, file.");
             e.printStackTrace();
             System.exit(0);
         } catch (Exception e) {
