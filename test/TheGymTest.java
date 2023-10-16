@@ -22,7 +22,7 @@ class TheGymTest {
     Customer c3 = new Customer("4324321111", "Enannan Ytterligare", LocalDate.now().minusMonths(12).toString());
 
     @Test
-    public void getCustomerFromList() {
+    public void getCustomerFromList() {                     //Testar att metoden returnerar rätt Customer från listan
         testList.add(c1);
         testList.add(c2);
         testList.add(c3);
@@ -33,15 +33,15 @@ class TheGymTest {
     }
 
     @Test
-    public void currentMemberCheckTest() {
-        assertTrue(testGym.currentMemberCheck(c1));
-        assertFalse(testGym.currentMemberCheck(c2));
+    public void currentMemberCheckTest() {                  //Testar att metoden returnerar rätt boolean om
+        assertTrue(testGym.currentMemberCheck(c1));         //Customer på listan har medlemskap som är ett år
+        assertFalse(testGym.currentMemberCheck(c2));        //gammalt eller nyare.
         assertTrue(testGym.currentMemberCheck(c3));
     }
 
     @Test
-    public void findCustomerInListTest() {
-        testList.add(c1);
+    public void findCustomerInListTest() {                  //Testar att metoden visar om Customer finns i listan eller
+        testList.add(c1);                                   //inte, när den får inparameter namn eller personnummer.
         testList.add(c2);
         assertTrue(testGym.findCustomerInList("1234567878", testList));
         assertTrue(testGym.findCustomerInList("Test Testsson", testList));
@@ -53,8 +53,8 @@ class TheGymTest {
     }
 
     @Test
-    public void printToPTInfoTest() {
-        testList.add(c1);
+    public void printToPTInfoTest() {                       //Testar att metoden skriver rätt rad till PT-filen och
+        testList.add(c1);                                   //att nästa rad hamnar som en ny rad i filen
         testList.add(c2);
         try {
             Files.deleteIfExists(toPTinfoTestFilePath);
@@ -80,7 +80,7 @@ class TheGymTest {
     }
 
     @Test
-    public void addToCustomerListTest() {
+    public void addToCustomerListTest() {                  //Testar att metoden scannar från fil + bygger korrekt lista.
         try (Scanner fileScanner = new Scanner(fromCustomersTestFilePath)) {
             testList = testGym.addToCustomerList(fileScanner);
             assertTrue(testList.size() == 3);

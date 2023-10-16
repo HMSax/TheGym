@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Customer {
     private String personalNumber;
     private String name;
@@ -13,23 +15,16 @@ public class Customer {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPersonalNumber() {
         return personalNumber;
-    }
-
-    public void setPersonalNumber(String personalNumber) {
-        this.personalNumber = personalNumber;
     }
 
     public String getDateOfMembership() {
         return dateOfMembership;
     }
 
-    public void setDateOfMembership(String dateOfMembership) {
-        this.dateOfMembership = dateOfMembership;
+    public void updateMembership() {                            //F.d. medlem betalar ny medlemsavgift idag.
+        this.dateOfMembership = LocalDate.now().toString();     //Används ej i huvudprogrammets nuvarande form.
     }
+
 }
