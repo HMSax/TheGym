@@ -88,7 +88,7 @@ public class TheGym {
         Customer currentCustomer;
         boolean programLoop = true;
 
-        System.out.println("Welcome to Best Gym Ever!");
+        System.out.println("Välkommen till Best Gym Ever!");
 
         try (Scanner fileScanner = new Scanner(fromCustomersFilePath); Scanner userScan = new Scanner(System.in)) {
             customerList = addToCustomerList(fileScanner);
