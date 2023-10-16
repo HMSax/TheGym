@@ -84,8 +84,7 @@ public class TheGym {
         Customer currentCustomer;
 
         System.out.println("Welcome to Best Gym Ever!");
-        try (Scanner fileScanner = new Scanner(fromCustomersFilePath);
-             Scanner userScan = new Scanner(System.in)) {
+        try (Scanner fileScanner = new Scanner(fromCustomersFilePath); Scanner userScan = new Scanner(System.in)) {
             customerList = addToCustomerList(fileScanner);
             System.out.println("Skriv namn eller personnummer:");
             userInputString = userScan.nextLine().trim();

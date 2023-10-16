@@ -22,7 +22,7 @@ class TheGymTest {
     Customer c3 = new Customer("4324321111", "Enannan Ytterligare", LocalDate.now().minusMonths(12).toString());
 
     @Test
-    public void getCustomerFromList(){
+    public void getCustomerFromList() {
         testList.add(c1);
         testList.add(c2);
         testList.add(c3);
@@ -31,6 +31,7 @@ class TheGymTest {
         assertTrue(testGym.getCustomerFromList("4324321111", testList) != c1);
 
     }
+
     @Test
     public void currentMemberCheckTest() {
         assertTrue(testGym.currentMemberCheck(c1));
