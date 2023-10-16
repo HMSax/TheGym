@@ -93,7 +93,7 @@ public class TheGym {
         try (Scanner fileScanner = new Scanner(fromCustomersFilePath); Scanner userScan = new Scanner(System.in)) {
             customerList = addToCustomerList(fileScanner);
             while (programLoop) {
-                System.out.println("Skriv namn eller personnummer:");
+                System.out.println("Skriv ett fullständigt namn eller personnummer:");
                 userInputString = userScan.nextLine().trim();
 
                 if (!findCustomerInList(userInputString, customerList)) {
