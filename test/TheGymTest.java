@@ -86,21 +86,12 @@ class TheGymTest {
 
     @Test
     public void addToCustomerListTest() {                  //Testar att metoden scannar från fil + bygger korrekt lista.
-        try (Scanner fileScanner = new Scanner(fromCustomersTestFilePath)) {
-            testList = testGym.addToCustomerList(fileScanner);
+            testList = testGym.addToCustomerList(fromCustomersTestFilePath);
             assertTrue(testList.size() == 3);
             assertFalse(testList.size() == 2);
             assertTrue(testList.get(0).getName().equals("Alhambra Aromes"));
             assertTrue(testList.get(1).getPersonalNumber().equals("8204021234"));
             assertTrue(testList.get(2).getDateOfMembership().equals("2018-03-12"));
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 }

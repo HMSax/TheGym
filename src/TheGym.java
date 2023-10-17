@@ -22,19 +22,33 @@ public class TheGym {
     }
 
     // Läser från filen (customers.txt) och skapar upp samt returnerar en Customer-lista.
-    public List<Customer> addToCustomerList(Scanner fileScanner) {
+    public List<Customer> addToCustomerList(Path fromFile) {
         String firstLine;
         String secondLine = "";
         List<Customer> cList = new ArrayList<>();
         String[] customerInfoFirstLine;
-        while (fileScanner.hasNext()) {
-            firstLine = fileScanner.nextLine().trim();
-            customerInfoFirstLine = firstLine.split(",");
-            if (fileScanner.hasNext()) {
-                secondLine = fileScanner.nextLine().trim();
+        try (Scanner fileScanner = new Scanner(fromFile)) {
+            while (fileScanner.hasNext()) {
+                firstLine = fileScanner.nextLine().trim();
+                customerInfoFirstLine = firstLine.split(",");
+                if (fileScanner.hasNext()) {
+                    secondLine = fileScanner.nextLine().trim();
+                }
+                Customer customer = new Customer(customerInfoFirstLine[0].trim(), customerInfoFirstLine[1].trim(), secondLine);
+                cList.add(customer);
             }
-            Customer customer = new Customer(customerInfoFirstLine[0].trim(), customerInfoFirstLine[1].trim(), secondLine);
-            cList.add(customer);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file.");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            System.out.println("Something went wrong.");
+            e.printStackTrace();
+            System.exit(0);
         }
         return cList;
     }
@@ -77,9 +91,13 @@ public class TheGym {
             }
             printToFile.write(customer.getPersonalNumber() + " " + customer.getName()
                     + ", tränade " + LocalDate.now() + " klockan " + LocalTime.now().getHour()
-                    + ":" +LocalTime.now().getMinute() + "\n");
+                    + ":" + LocalTime.now().getMinute() + "\n");
         } catch (IOException e) {
-            System.out.println("Unable to write to, or create, file.");
+            System.out.println("Unable to write to file.");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            System.out.println("Something went wrong.");
             e.printStackTrace();
             System.exit(0);
         }
@@ -92,8 +110,8 @@ public class TheGym {
 
         System.out.println("Välkommen till Best Gym Ever!");
 
-        try (Scanner fileScanner = new Scanner(fromCustomersFilePath); Scanner userScan = new Scanner(System.in)) {
-            customerList = addToCustomerList(fileScanner);
+        try (Scanner userScan = new Scanner(System.in)) {
+            customerList = addToCustomerList(fromCustomersFilePath);
             while (programLoop) {
                 System.out.println("Skriv ett fullständigt namn eller personnummer:");
                 userInputString = userScan.nextLine().trim();
@@ -118,14 +136,6 @@ public class TheGym {
                     programLoop = false;
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-            System.exit(0);
-        } catch (IOException e) {
-            System.out.println("Unable to read from, or write to, file.");
-            e.printStackTrace();
-            System.exit(0);
         } catch (Exception e) {
             System.out.println("Something went wrong.");
             e.printStackTrace();
@@ -140,3 +150,6 @@ public class TheGym {
     }
 
 }
+//Presentationsdata:
+//7911061234 Fritjoff Flacon
+//7608021234 Diamanda Djedi
