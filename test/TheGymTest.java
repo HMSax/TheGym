@@ -71,11 +71,13 @@ class TheGymTest {
             String testScan;
             testScan = fileScanner.nextLine();
             assertTrue(testScan.equals("1234567878 Test Testsson, tränade " + LocalDate.now()
-                    + " klockan " + LocalTime.now().getHour() + ":" +LocalTime.now().getMinute()));
+                    + " klockan " + LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
             testScan = fileScanner.nextLine();
             assertTrue(testScan.equals("2424242424 Prova Provasdotter, tränade " + LocalDate.now()
-                    + " klockan " + LocalTime.now().getHour() + ":" +LocalTime.now().getMinute()));
+                    + " klockan " + LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -93,17 +95,11 @@ class TheGymTest {
             assertTrue(testList.get(2).getDateOfMembership().equals("2018-03-12"));
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
             e.printStackTrace();
-            System.exit(0);
         } catch (IOException e) {
-            System.out.println("Unable to write to file.");
             e.printStackTrace();
-            System.exit(0);
         } catch (Exception e) {
-            System.out.println("Something went wrong.");
             e.printStackTrace();
-            System.exit(0);
         }
 
     }

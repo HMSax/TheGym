@@ -15,6 +15,7 @@ public class TheGym {
     Path fromCustomersFilePath = Paths.get("src/customers.txt");
     Path toPTFilePath = Paths.get("src/ptinfo.txt");
     List<Customer> customerList = new ArrayList<>();
+    Customer currentCustomer;
 
     public TheGym() {
 
@@ -87,7 +88,6 @@ public class TheGym {
     //huvudprogrammet innehållande det användaren ser.
     public void mainProgram() {
         String userInputString;
-        Customer currentCustomer;
         boolean programLoop = true;
 
         System.out.println("Välkommen till Best Gym Ever!");
