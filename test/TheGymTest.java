@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -54,7 +53,7 @@ class TheGymTest {
     }
 
     @Test
-    public void printToPTInfoTest() throws IOException {                       //Testar att metoden skriver rätt rad till PT-filen och
+    public void printToPTInfoTest() throws IOException {    //Testar att metoden skriver rätt rad till PT-filen och
         testList.add(c1);                                   //att nästa rad hamnar som en ny rad i filen
         testList.add(c2);
         testList.add(c3);
@@ -84,18 +83,18 @@ class TheGymTest {
     }
 
     @Test
-    public void addToCustomerListTest() throws IOException {                  //Testar att metoden scannar från fil + bygger korrekt lista.
-            testList = testGym.addToCustomerList(fromCustomersTestFilePath);
-            assertTrue(testList.size() == 3);
-            assertFalse(testList.size() == 2);
-            assertTrue(testList.get(0).getName().equals("Alhambra Aromes"));
-            assertTrue(testList.get(1).getPersonalNumber().equals("8204021234"));
-            assertTrue(testList.get(2).getDateOfMembership().equals("2018-03-12"));
+    public void addToCustomerListTest() throws IOException {                //Testar att metoden scannar från fil
+        testList = testGym.addToCustomerList(fromCustomersTestFilePath);    //och skapar upp korrekt Customer-lista.
+        assertTrue(testList.size() == 3);
+        assertFalse(testList.size() == 2);
+        assertTrue(testList.get(0).getName().equals("Alhambra Aromes"));
+        assertTrue(testList.get(1).getPersonalNumber().equals("8204021234"));
+        assertTrue(testList.get(2).getDateOfMembership().equals("2018-03-12"));
     }
 
     @Test
-    public void readFromFileExceptionTest(){
-        Throwable exception = assertThrows(NoSuchFileException.class,
+    public void readFromFileExceptionTest() {                               //Testar att NoSuchFileException kastas
+        Throwable exception = assertThrows(NoSuchFileException.class,       //vid felaktig input-Path
                 () -> testList = testGym.addToCustomerList(wrongFilePath));
     }
 }

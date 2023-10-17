@@ -116,7 +116,7 @@ public class TheGym {
                     programLoop = false;
                 }
             }
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Oops. File not found.");
             e.printStackTrace();
             System.exit(0);
@@ -124,7 +124,7 @@ public class TheGym {
             System.out.println("Error while trying to read from, or write to, file.");
             e.printStackTrace();
             System.exit(0);
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Something went wrong.");
             e.printStackTrace();
             System.exit(0);
