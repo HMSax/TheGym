@@ -138,6 +138,3 @@ public class TheGym {
     }
 
 }
-//Presentationsdata:
-//7911061234 Fritjoff Flacon
-//7608021234 Diamanda Djedi
