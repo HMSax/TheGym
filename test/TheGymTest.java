@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TheGymTest {
     Path fromCustomersTestFilePath = Paths.get("test/customerTest.txt");
     Path toPTinfoTestFilePath = Paths.get("test/ptinfoTest.txt");
+    Path wrongFilePath = Paths.get("test/allwrong.txt");
     List<Customer> testList = new ArrayList<>();
     TheGym testGym = new TheGym();
     Customer c1 = new Customer("1234567878", "Test Testsson", LocalDate.now().minusMonths(6).toString());
@@ -30,11 +32,10 @@ class TheGymTest {
         assertTrue(testGym.getCustomerFromList("Test Testsson", testList) == c1);
         assertTrue(testGym.getCustomerFromList("2424242424", testList) == c2);
         assertTrue(testGym.getCustomerFromList("4324321111", testList) != c1);
-
     }
 
     @Test
-    public void currentMemberCheckTest() {                  //Testar att metoden returnerar rätt boolean om
+    public void currentMemberCheckTest() {                  //Testar att metoden returnerar true boolean om
         assertTrue(testGym.currentMemberCheck(c1));         //Customer på listan har medlemskap som är ett år
         assertFalse(testGym.currentMemberCheck(c2));        //gammalt eller nyare.
         assertTrue(testGym.currentMemberCheck(c3));
@@ -50,13 +51,13 @@ class TheGymTest {
         assertTrue(testGym.findCustomerInList("2424242424", testList));
         assertFalse(testGym.findCustomerInList("1111111111", testList));
         assertFalse(testGym.findCustomerInList("Errol Error", testList));
-
     }
 
     @Test
-    public void printToPTInfoTest() {                       //Testar att metoden skriver rätt rad till PT-filen och
+    public void printToPTInfoTest() throws IOException {                       //Testar att metoden skriver rätt rad till PT-filen och
         testList.add(c1);                                   //att nästa rad hamnar som en ny rad i filen
         testList.add(c2);
+        testList.add(c3);
         try {
             Files.deleteIfExists(toPTinfoTestFilePath);
             Files.createFile(toPTinfoTestFilePath);
@@ -80,18 +81,21 @@ class TheGymTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Test
-    public void addToCustomerListTest() {                  //Testar att metoden scannar från fil + bygger korrekt lista.
+    public void addToCustomerListTest() throws IOException {                  //Testar att metoden scannar från fil + bygger korrekt lista.
             testList = testGym.addToCustomerList(fromCustomersTestFilePath);
             assertTrue(testList.size() == 3);
             assertFalse(testList.size() == 2);
             assertTrue(testList.get(0).getName().equals("Alhambra Aromes"));
             assertTrue(testList.get(1).getPersonalNumber().equals("8204021234"));
             assertTrue(testList.get(2).getDateOfMembership().equals("2018-03-12"));
+    }
 
+    @Test
+    public void readFromFileExceptionTest(){
+        Throwable exception = assertThrows(NoSuchFileException.class,
+                () -> testList = testGym.addToCustomerList(wrongFilePath));
     }
 }

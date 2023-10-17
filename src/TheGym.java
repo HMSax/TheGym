@@ -22,7 +22,7 @@ public class TheGym {
     }
 
     // Läser från filen (customers.txt) och skapar upp samt returnerar en Customer-lista.
-    public List<Customer> addToCustomerList(Path fromFile) {
+    public List<Customer> addToCustomerList(Path fromFile) throws IOException {
         String firstLine;
         String secondLine = "";
         List<Customer> cList = new ArrayList<>();
@@ -37,18 +37,6 @@ public class TheGym {
                 Customer customer = new Customer(customerInfoFirstLine[0].trim(), customerInfoFirstLine[1].trim(), secondLine);
                 cList.add(customer);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-            System.exit(0);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file.");
-            e.printStackTrace();
-            System.exit(0);
-        } catch (Exception e) {
-            System.out.println("Something went wrong.");
-            e.printStackTrace();
-            System.exit(0);
         }
         return cList;
     }
@@ -82,24 +70,16 @@ public class TheGym {
     }
 
     //skriver aktuell Customer, träningsdatum (dagens datum) och starttid till PT-filen.
-    public void printToPTInfo(Customer customer, Path outFilePath) {
-
+    public void printToPTInfo(Customer customer, Path outFilePath) throws IOException {
+        if (!Files.exists(outFilePath)) {
+            Files.createFile(outFilePath);
+        }
         try (PrintWriter printToFile = new PrintWriter(Files.newBufferedWriter(
                 outFilePath, StandardOpenOption.APPEND))) {
-            if (!Files.exists(outFilePath)) {
-                Files.createFile(outFilePath);
-            }
+
             printToFile.write(customer.getPersonalNumber() + " " + customer.getName()
                     + ", tränade " + LocalDate.now() + " klockan " + LocalTime.now().getHour()
                     + ":" + LocalTime.now().getMinute() + "\n");
-        } catch (IOException e) {
-            System.out.println("Unable to write to file.");
-            e.printStackTrace();
-            System.exit(0);
-        } catch (Exception e) {
-            System.out.println("Something went wrong.");
-            e.printStackTrace();
-            System.exit(0);
         }
     }
 
@@ -136,7 +116,15 @@ public class TheGym {
                     programLoop = false;
                 }
             }
-        } catch (Exception e) {
+        }catch (FileNotFoundException e) {
+            System.out.println("Oops. File not found.");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("Error while trying to read from, or write to, file.");
+            e.printStackTrace();
+            System.exit(0);
+        }catch (Exception e) {
             System.out.println("Something went wrong.");
             e.printStackTrace();
             System.exit(0);
