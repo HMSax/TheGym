@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,9 +70,11 @@ class TheGymTest {
         try (Scanner fileScanner = new Scanner(toPTinfoTestFilePath)) {
             String testScan;
             testScan = fileScanner.nextLine();
-            assertTrue(testScan.equals("1234567878 Test Testsson, tränade " + LocalDate.now()));
+            assertTrue(testScan.equals("1234567878 Test Testsson, tränade " + LocalDate.now()
+                    + " klockan " + LocalTime.now().getHour() + ":" +LocalTime.now().getMinute()));
             testScan = fileScanner.nextLine();
-            assertTrue(testScan.equals("2424242424 Prova Provasdotter, tränade " + LocalDate.now()));
+            assertTrue(testScan.equals("2424242424 Prova Provasdotter, tränade " + LocalDate.now()
+                    + " klockan " + LocalTime.now().getHour() + ":" +LocalTime.now().getMinute()));
         } catch (IOException e) {
             e.printStackTrace();
         }

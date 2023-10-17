@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -65,7 +66,7 @@ public class TheGym {
         } else return false;
     }
 
-    //skriver aktuell Customer och träningsdatum (dagens datum) till PT-filen.
+    //skriver aktuell Customer, träningsdatum (dagens datum) och starttid till PT-filen.
     public void printToPTInfo(Customer customer, Path outFilePath) {
 
         try (PrintWriter printToFile = new PrintWriter(Files.newBufferedWriter(
@@ -74,9 +75,10 @@ public class TheGym {
                 Files.createFile(outFilePath);
             }
             printToFile.write(customer.getPersonalNumber() + " " + customer.getName()
-                    + ", tränade " + LocalDate.now() + "\n");
+                    + ", tränade " + LocalDate.now() + " klockan " + LocalTime.now().getHour()
+                    + ":" +LocalTime.now().getMinute() + "\n");
         } catch (IOException e) {
-            System.out.println("Unable to create file.");
+            System.out.println("Unable to write to, or create, file.");
             e.printStackTrace();
             System.exit(0);
         }
