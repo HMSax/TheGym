@@ -103,8 +103,8 @@ public class TheGym {
 
                     if (!currentMemberCheck(currentCustomer)) {
                         System.out.println("Personen har inte ett aktivt medlemskap. \n" +
-                                currentCustomer.getName() + " blev medlem "
-                                + currentCustomer.getDateOfMembership());
+                                currentCustomer.getName() + " betalade sin årsavgift "
+                                + currentCustomer.getDateOfMembership() + ".");
                     } else {
                         System.out.println(currentCustomer.getName() + " med personnummer " +
                                 currentCustomer.getPersonalNumber() + " är aktiv medlem på Best Gym Ever. Välkommen!");
